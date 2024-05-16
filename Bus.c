@@ -752,7 +752,7 @@ void ask_user_info()
     printf("   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd  Please Provide Information  \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n");
     printf("\n   ENTER YOUR NAME: ");
     fflush(stdin);
-    fgets(str, 30, stdin);
+    gets(str);
     strcpy(newbooking_history.name,str);
     printf("   ENTER YOUR PHONE NO: ");
     fflush(stdin);
@@ -786,7 +786,7 @@ void ticket()
     printf("\n   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n");
     printf("  |  \tDestination: %-15s\t\tDeparture time: %-8s    |\n",newbooking_history.destination,newbooking_history.time);
     fflush(stdin);
-    printf("  |  \tName: %-15s\t\tPhn no: %-12s   |\n",newbooking_history.name,newbooking_history.phn_no);
+    printf("  |  \tName: %-22s\t\tPhn no: %-15s     |\n",newbooking_history.name,newbooking_history.phn_no);
     printf("  |  \tSeat no: %-19d\t\tFare: BDT %-15d   |\n",newbooking_history.seat_no,newbooking_history.fare);
     printf("  |    %-66s   |\n",b);
     printf("  |    %-66s   |\n",a);
