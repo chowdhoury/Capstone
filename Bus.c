@@ -79,6 +79,18 @@ int history_count=0;
 // };
 
 // struct sit_info sit[8][6][5][32];
+
+struct sign_up
+{
+    char username[10];
+    char password[10];
+    int serial;
+};
+
+struct sign_up sign_ups[10];
+struct sign_up new_sign_up;
+int user=0;
+
 bool sit[8][6][5][32];
 
 //---------------------------------------------------------End of Global veriable----------------------------------------------------------------------------------//
@@ -100,8 +112,8 @@ int main()
     // int x=1;
     // strcpy(newbooking_history.destination,destination[x-1]);
     // printf("%s",newbooking_history.destination);
-    // user_login_signup_menu();
-    user_menu();
+    user_login_signup_menu();
+    // user_menu();
     // bus_list();
     // seat_view();
     // ask_user_info();
@@ -301,36 +313,55 @@ void user_login_signup_menu()
 //---------------------------------------------------------Start of User Exist or not------------------------------------------------------------------------//
 
 bool user_Exists(const char *username) {
-    FILE *file = fopen("user.txt", "r");
-    if (file == NULL) {
+    bool flag=0;
+    // FILE *file = fopen("user.txt", "r");
+    // if (file == NULL) {
+    //     return false;
+    // }
+    // char line[10 + 10 + 2];
+    // while (fgets(line, sizeof(line), file) != NULL) {
+    //     char *token = strtok(line, ":");
+    //     if (token != NULL && strcmp(token, username) == 0) {
+    //         fclose(file);
+    //         return true;
+    //     }
+    // }
+    // fclose(file);
+    // return false;
+    for (int i = 0; i < user; i++)
+    {
+        if (strcmp(sign_ups[i].username,username)==0)
+        {
+            flag=1;
+            break;
+        }
+        
+    }
+    if (flag)
+    {
+        return true;
+    }else
+    {
         return false;
     }
-    char line[10 + 10 + 2];
-    while (fgets(line, sizeof(line), file) != NULL) {
-        char *token = strtok(line, ":");
-        if (token != NULL && strcmp(token, username) == 0) {
-            fclose(file);
-            return true;
-        }
-    }
-    fclose(file);
-    return false;
+    
+    
 }
 
 //---------------------------------------------------------End of User Exist or not--------------------------------------------------------------------------//
 
 
 //---------------------------------------------------------Start of Signup-----------------------------------------------------------------------------------//
-void clearBuffer() {
-    int ch;
-    while ((ch = getchar()) != '\n' && ch != EOF);
-}
+// void clearBuffer() {
+//     int ch;
+//     while ((ch = getchar()) != '\n' && ch != EOF);
+// }
 
 void user_signup() {
     char username[10];
     char password[10];
     char confirm[10];
-    clearBuffer();
+    // clearBuffer();
     while (1)
     {
         system("cls");
@@ -359,7 +390,7 @@ void user_signup() {
             return;
         }
 
-
+        strcpy(new_sign_up.username,username);
         printf("   ENTER PASSWORD: ");
         int i = 0;
         char ch;
@@ -412,14 +443,22 @@ void user_signup() {
             system("cls");
         }else
         {
-            FILE *file = fopen("user.txt", "a");
-            if (file == NULL) {
-                printf("Error opening file.\n");
-            }
-
-            fprintf(file, "%s:%s\n", username, password);
-            fclose(file);
+            strcpy(new_sign_up.password,confirm);
+            new_sign_up.serial=user;
+            sign_ups[user++]=new_sign_up;
+            // printf("%s%s%d",sign_ups[user-1].username,sign_ups[user-1].password,sign_ups[user-1].serial);
+            // getchar();
             break;
+
+            // getchar();
+            // FILE *file = fopen("user.txt", "a");
+            // if (file == NULL) {
+            //     printf("Error opening file.\n");
+            // }
+
+            // fprintf(file, "%s:%s\n", username, password);
+            // fclose(file);
+            // break;
         }
     }
     system("cls");
@@ -440,12 +479,95 @@ void user_signup() {
 
 //---------------------------------------------------------Start of user login------------------------------------------------------------------------------//
 
-void login_user() {
+void login_user() 
+{
+    char username[10];
+    char password[10];
+    char confirm[10];
+    bool flag=0;
+    // clearBuffer();
+    while (1)
+    {
+        system("cls");
+        printf("\n\n   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n");
+        printf("\t    BUS TICKET RESERVATION SYSTEM");
+        printf("\n   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n\n");
+        printf("   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd  USER SIGNUP  \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd  ");
+        printf("\n\n   ENTER USERNAME: ");
+        fflush(stdin);
+        fgets(username, 10, stdin);
+        username[strcspn(username, "\n")] = '\0';
+
+        printf("   ENTER PASSWORD: ");
+        int i = 0;
+        char ch;
+        while (1) {
+            fflush(stdin);
+            ch = getch();
+            if (ch == '\r') {
+                password[i] = '\0';
+                break;
+            } else if (ch == 8 && i > 0) {
+                printf("\b \b");
+                i--;
+            } else if (ch >= 32 && ch <= 126) {
+                printf("*");
+                password[i] = ch;
+                i++;
+            }
+        }
+        printf("\n");
+
+        for (int i = 0; i < user; i++)
+        {
+            if ((strcmp(username,sign_ups[i].username) == 0) && (strcmp(username,sign_ups[i].password) ==0)) {
+                system("cls");
+                printf("\n\n   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n");
+                printf("     BUS TICKET RESERVATION SYSTEM");
+                printf("\n   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n\n");
+                printf("   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd  USER SIGNUP  \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n\n");
+                printf("           Login Successfull\n\n");
+                printf("   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n");
+                printf("   Press any key to continue...");
+                getchar();
+                system("cls");
+                flag=1;
+                break;
+            }
+        }
+        if (flag)
+        {
+            break;
+        }else
+        {
+            system("cls");
+            printf("\n\n   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n");
+            printf("     BUS TICKET RESERVATION SYSTEM");
+            printf("\n   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n\n");
+            printf("   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd  USER SIGNUP  \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n\n");
+            printf("           Wrong User or Password\n\n");
+            printf("   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n");
+            printf("%s%s",username,password);
+            printf("   Press any key to continue...");
+            getchar();
+            system("cls");
+        }
+        
+    }
+
+        
+
+
+    // bool flag=0;
     // char username[10];
     // char password[10];
-    // char buffer[100]; // Buffer to store each line read from the file
+    // while (1)
+    // {
+    //     /* code */
+    // }
+    
     // int i = 0;
-
+    // fflush(stdin);
     // printf("Enter Username: ");
     // fgets(username, 10, stdin);
     // username[strcspn(username, "\n")] = '\0';
@@ -466,6 +588,26 @@ void login_user() {
     //     }
     // }
     // printf("\n");
+
+    // for (int j = 0; j < user; j++)
+    // {
+    //     if (strcmp(sign_ups[i].username,username)==0 && strcmp(sign_ups[i].password,password)==0)
+    //     {
+    //         user_menu();
+    //     }else
+    //     {
+    //         flag=1;
+    //     }
+        
+    // }
+
+    // if (flag)
+    // {
+    //     printf("Fail to login");
+    //     getchar();
+    // }
+    
+    
 
     // FILE *file = fopen("user.txt", "r");
     // if (file == NULL) {
@@ -963,4 +1105,29 @@ void cancel()
             break;
         }
     }
+}
+
+void file_read()
+{
+
+}
+
+void file_write()
+{
+    //--------------------------------------------------------------------------------user/pass/serial wrire-------------------------------------------------------------------//
+    FILE *fp;
+    int i;
+    fp = fopen("user.txt", "a");
+    if (fp == NULL)
+    {
+        printf("Error opening file!\n");
+        exit(1);
+    }
+    for (int i = 0; i < user; i++)
+    {
+        fprintf(fp, "%s,%s,%d\n",sign_ups[i].username,sign_ups[i].password,sign_ups[i].serial);
+    }    
+    fclose(fp);
+    //--------------------------------------------------------------------------------user/pass/serial wrire-------------------------------------------------------------------//
+
 }
