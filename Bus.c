@@ -41,6 +41,8 @@ void ask_user_info();
 void ticket();
 void history();
 void cancel();
+void user_file_write();
+void user_file_read();
 
 //---------------------------------------------------------End of function recall----------------------------------------------------------------------------------//
 
@@ -98,8 +100,9 @@ bool sit[8][6][5][32];
 int main()
 {
     system("color 70");
-    strcpy(newbooking_history.user_id,abcd);
-     welcome();
+    // strcpy(newbooking_history.user_id,abcd);
+    user_file_read();
+    welcome();
     // user_list();
 //    login_admin();
     // login_user();
@@ -447,6 +450,7 @@ void user_signup() {
             strcpy(new_sign_up.password,confirm);
             new_sign_up.serial=user;
             sign_ups[user++]=new_sign_up;
+            user_file_write();
             // printf("%s%s%d",sign_ups[user-1].username,sign_ups[user-1].password,sign_ups[user-1].serial);
             // getchar();
             break;
@@ -1128,17 +1132,30 @@ void cancel()
     }
 }
 
-void file_read()
+void user_file_read()
 {
+    FILE *fp;
+    fp = fopen("user.txt", "r");
+    if (fp == NULL) {
+        printf("Error opening file!\n");
+        return;
+    }
 
+    user = 0;
+    while (user < 10 && fscanf(fp, "%[^,] ,%[^,],%d,\n",
+            sign_ups[user].username, sign_ups[user].password, &sign_ups[user].serial) != EOF) {
+        user++;
+    }
+
+    fclose(fp);
 }
 
-void file_write()
+void user_file_write()
 {
     //--------------------------------------------------------------------------------user/pass/serial wrire-------------------------------------------------------------------//
     FILE *fp;
     int i;
-    fp = fopen("user.txt", "a");
+    fp = fopen("user.txt", "w");
     if (fp == NULL)
     {
         printf("Error opening file!\n");
