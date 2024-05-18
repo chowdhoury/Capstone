@@ -211,7 +211,7 @@ void user_list()
 void login_admin()
 {
     char user[10];
-    char username[] = "admin";
+    char username[] = "Admin";
     char password[] = "admin";
     char pass[11],ch;
     int i=0;
@@ -224,7 +224,8 @@ void login_admin()
         printf("   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd  ADMIN LOGIN  \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd  ");
         fflush(stdin);
         printf("\n\n   ENTER USERNAME: ");
-        scanf("%s", &user);
+        fflush(stdin);
+        scanf("%s", user);
         printf(" \n   ENTER PASSWORD: ");
         while (i < 11)
         {
@@ -456,8 +457,9 @@ void user_signup() {
         {
             strcpy(new_sign_up.password,confirm);
             new_sign_up.serial=user;
-            sign_ups[user++]=new_sign_up;
+            sign_ups[user]=new_sign_up;
             user_file_write();
+            user++;
             // printf("%s%s%d",sign_ups[user-1].username,sign_ups[user-1].password,sign_ups[user-1].serial);
             // getchar();
             break;
@@ -541,7 +543,7 @@ void login_user()
                 printf("   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd  USER SIGNUP  \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n\n");
                 printf("           Login Successful\n\n");
                 printf("   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n");
-                temp=sign_ups[i].serial;
+                temp=i;
                 printf("   Press any key to continue...");
                 getchar();
                 system("cls");
@@ -996,7 +998,7 @@ void ticket()
 
 void history()
 {
-    // int z=0;
+    int z=0;
     // for (int i = 0; i < history_count; i++)
     // {
     //     if (strcmp(booking_historys[i].user_id,abcd) == 0)
@@ -1005,6 +1007,7 @@ void history()
     //         break;
     //     }  
     // }
+
     
     if (history_count==0)
     {
@@ -1042,9 +1045,41 @@ void history()
             // {
             //     printf("    %-8s    |\n","Canceled");
             // }
-            printf("  |    %-15s    |    %-25s    |    %-8s    |    %-8d    |    %-22s    |    %-12s    |    %-8s    |\n",booking_historys[i].destination,booking_historys[i].bus_name,booking_historys[i].time,booking_historys[i].seat_no,booking_historys[i].name,booking_historys[i].phn_no,booking_historys[i].status);
-            printf("   ----------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
+            if (temp==booking_historys[i].user_id)
+            {
+                //printf("  |    %-15s    |    %-25s    |    %-8s    |    %-8d    |    %-22s    |    %-12s    |    %-8s    |\n",booking_historys[i].destination,booking_historys[i].bus_name,booking_historys[i].time,booking_historys[i].seat_no,booking_historys[i].name,booking_historys[i].phn_no,booking_historys[i].status);
+                //printf("   ----------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
+                z++;
+            }
+            
+            //printf("  |    %-15s    |    %-25s    |    %-8s    |    %-8d    |    %-22s    |    %-12s    |    %-8s    |\n",booking_historys[i].destination,booking_historys[i].bus_name,booking_historys[i].time,booking_historys[i].seat_no,booking_historys[i].name,booking_historys[i].phn_no,booking_historys[i].status);
+            //printf("   ----------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
         // }  
+    }
+    if(z==0)
+    {
+        system("cls");
+        printf("\n\n   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n");
+        printf("        BUS TICKET RESERVATION SYSTEM");
+        printf("\n   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n\n");
+        printf("              No History Found!\n\n");
+        printf("   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n");
+        // printf("   Press any key to continue...");
+    //     getchar();
+    //     getchar();
+    //     system("cls");
+    //     user_menu();        
+    }else
+    {
+        for (int i = 0; i < history_count; i++)
+        {
+            if (temp==booking_historys[i].user_id)
+            {
+                printf("  |    %-15s    |    %-25s    |    %-8s    |    %-8d    |    %-22s    |    %-12s    |    %-8s    |\n",booking_historys[i].destination,booking_historys[i].bus_name,booking_historys[i].time,booking_historys[i].seat_no,booking_historys[i].name,booking_historys[i].phn_no,booking_historys[i].status);
+                printf("   ----------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
+                // z++;
+            }   
+        }
     }
         printf("   Press any key to continue...");
         getchar();
@@ -1152,29 +1187,63 @@ void user_file_read()
     }
 
     user = 0;
-    while (user < 10 && fscanf(fp, "%[^,] ,%[^,],%d,\n",
+    while (fscanf(fp, "%[^,] ,%[^,],%d\n",
             sign_ups[user].username, sign_ups[user].password, &sign_ups[user].serial) != EOF) {
         user++;
     }
 
     fclose(fp);
+    // FILE *fp = fopen("user.txt", "r");
+    // if (fp == NULL) {
+    //     perror("Error opening file");
+    //     return;
+    // }
+
+    // int user = 0;
+    // while (user < 10) {
+    //     if (fscanf(fp, " %99[^,],%99[^,],%d\n",
+    //                sign_ups[user].username,
+    //                sign_ups[user].password,
+    //                &sign_ups[user].serial) == 3) {
+    //         user++;
+    //     } else {
+    //         break;  // Exit the loop if reading fails
+    //     }
+    // }
+
+    // if (ferror(fp)) {
+    //     perror("Error reading file");
+    // }
+
+    // fclose(fp);
 }
 
 void user_file_write()
 {
     //--------------------------------------------------------------------------------user/pass/serial wrire-------------------------------------------------------------------//
-    FILE *fp;
-    int i;
-    fp = fopen("user.txt", "w");
-    if (fp == NULL)
-    {
-        printf("Error opening file!\n");
-        exit(1);
+    // FILE *fp;
+    // int i;
+    // fp = fopen("user.txt", "a");
+    // if (fp == NULL)
+    // {
+    //     printf("Error opening file!\n");
+    //     exit(1);
+    // }
+    // for (int i = 0; i < user; i++)
+    // {
+    //     fprintf(fp, "%s,%s,%d\n",sign_ups[i].username,sign_ups[i].password,sign_ups[i].serial);
+    // }    
+    // fclose(fp);
+        FILE *fp = fopen("user.txt", "a");
+    if (fp == NULL) {
+        perror("Error opening file");
+        exit(EXIT_FAILURE);
     }
-    for (int i = 0; i < user; i++)
-    {
-        fprintf(fp, "%s,%s,%d\n",sign_ups[i].username,sign_ups[i].password,sign_ups[i].serial);
-    }    
+    
+    // for (int i = 0; i < user; i++) {
+        fprintf(fp, "%s,%s,%d\n", sign_ups[user].username, sign_ups[user].password, sign_ups[user].serial);
+    // }
+    
     fclose(fp);
     //--------------------------------------------------------------------------------user/pass/serial wrire-------------------------------------------------------------------//
 }
@@ -1206,7 +1275,7 @@ void history_file_read()
     }
 
     history_count = 0;
-    while (history_count < 1000 && fscanf(fp, "%d,%[^,] ,%[^,],%[^,],%[^,] ,%[^,],%[^,],%d,%d\n",
+    while (fscanf(fp, "%d,%[^,] ,%[^,],%[^,],%[^,] ,%[^,],%[^,],%d,%d\n",
             &booking_historys[history_count].user_id, booking_historys[history_count].name, booking_historys[history_count].phn_no, booking_historys[history_count].destination, booking_historys[history_count].status, booking_historys[history_count].time,booking_historys[history_count].bus_name,&booking_historys[history_count].seat_no,&booking_historys[history_count].fare) != EOF) {
         history_count++;
     }
