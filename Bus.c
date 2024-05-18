@@ -1122,7 +1122,7 @@ void cancel()
         printf("   \xcd\xcd\xcd\xcd\xcd\xcd  CANCEL TICKET  \xcd\xcd\xcd\xcd\xcd\xcd \n\n");
         printf("\n   ENTER TICKET SERIAL NO: ");
         scanf("%d",&x);
-        if (x > history_count && x<1)
+        if (x > history_count || x<1)
         {
             invalid_choice();
         }else
@@ -1153,12 +1153,12 @@ void cancel()
                 printf("   ----------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
             // }  
             // }
-            printf("   Press y to Confirm cancelation any othe key to go to menu...");
+            printf("   Press y to Confirm cancelation any othe key to go to menu... ");
             fflush(stdin);
             scanf("%c",&a);
-            if (a=='n')
+            if (a=='y')
             {
-                strcmp(booking_historys[x-1].status,b);
+                strcpy(booking_historys[x-1].status,b);
                 system("cls");
                 printf("\n\n   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n");
                 printf("        BUS TICKET RESERVATION SYSTEM");
