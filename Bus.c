@@ -43,6 +43,8 @@ void history();
 void cancel();
 void user_file_write();
 void user_file_read();
+void history_file_write();
+void history_file_read();
 
 //---------------------------------------------------------End of function recall----------------------------------------------------------------------------------//
 
@@ -55,10 +57,11 @@ char destination[10][50]={"Dhaka", "Chattogram", "Khulna", "Rajshahi", "Sylhet",
 int fee[]={200,350,1000,800,1200,700,1100,400};
 int selected_bus,selected_destination,selected_time,selected_menu=2,selected_seat;
 char abcd[]="Raihan";
+int temp;
 
 struct booking_history
 {
-    char user_id[20];
+    int user_id;
 	char name[50];
 	char phn_no[50];
 	char destination[50];
@@ -102,6 +105,7 @@ int main()
     system("color 70");
     // strcpy(newbooking_history.user_id,abcd);
     user_file_read();
+    history_file_read();
     welcome();
     // user_list();
 //    login_admin();
@@ -139,6 +143,9 @@ void welcome()
     printf("                              Welcome to\n");
     printf("                   BUS TICKET RESERVATION SYSTEM\n");
     printf("   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n");
+    printf("                    Thanks to our course Teacher\n");    
+    printf("                         Abdul Hye Zebon\n");
+    printf("   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n");    
     printf("     Presenting to you in collaboration with \"Team Dare to Dream\"\n");
     printf("            Md Raihan Chowdhoury        -> 0242310005341002\n");
     printf("            Md Alif Khan                -> 232-35-740\n");
@@ -534,6 +541,7 @@ void login_user()
                 printf("   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd  USER SIGNUP  \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n\n");
                 printf("           Login Successful\n\n");
                 printf("   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n");
+                temp=sign_ups[i].serial;
                 printf("   Press any key to continue...");
                 getchar();
                 system("cls");
@@ -977,7 +985,9 @@ void ticket()
     system("cls");
     // booking_historys[history_count].status=1;
     strcpy(newbooking_history.status,status);
+    newbooking_history.user_id=temp;
     booking_historys[history_count++]=newbooking_history;
+    history_file_write();
     user_menu();
 }
 
@@ -1167,5 +1177,39 @@ void user_file_write()
     }    
     fclose(fp);
     //--------------------------------------------------------------------------------user/pass/serial wrire-------------------------------------------------------------------//
+}
 
+void history_file_write()
+{
+  FILE *fp;
+  int i;
+  fp = fopen("history.txt", "w");
+  if (fp == NULL)
+  {
+    printf("Error opening file!\n");
+    exit(1);
+  }
+  for (i = 0; i < history_count; i++)
+  {
+    fprintf(fp, "%d,%s,%s,%s,%s,%s,%s,%d,%d\n",booking_historys[i].user_id,booking_historys[i].name,booking_historys[i].phn_no,booking_historys[i].destination,booking_historys[i].status,booking_historys[i].time,booking_historys[i].bus_name,booking_historys[i].seat_no,booking_historys[i].fare);
+  }
+  fclose(fp);
+}
+
+void history_file_read()
+{
+    FILE *fp;
+    fp = fopen("history.txt", "r");
+    if (fp == NULL) {
+        printf("Error opening file!\n");
+        return;
+    }
+
+    history_count = 0;
+    while (history_count < 1000 && fscanf(fp, "%d,%[^,] ,%[^,],%[^,],%[^,] ,%[^,],%[^,],%d,%d\n",
+            &booking_historys[history_count].user_id, booking_historys[history_count].name, booking_historys[history_count].phn_no, booking_historys[history_count].destination, booking_historys[history_count].status, booking_historys[history_count].time,booking_historys[history_count].bus_name,&booking_historys[history_count].seat_no,&booking_historys[history_count].fare) != EOF) {
+        history_count++;
+    }
+
+    fclose(fp);
 }
