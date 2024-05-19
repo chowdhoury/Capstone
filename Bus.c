@@ -1414,7 +1414,7 @@ void admin_history()
     printf("   ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
     for (int i = 0; i < history_count; i++)
     {            
-            printf("  |    %-10d    |    %-10d    |    %-15s    |    %-25s    |    %-8s    |    %-8d    |    %-22s    |    %-12s    |    %-8s    |\n",booking_historys[i].serial,booking_historys[i].user_id,booking_historys[i].destination,booking_historys[i].bus_name,booking_historys[i].time,booking_historys[i].seat_no,booking_historys[i].name,booking_historys[i].phn_no,booking_historys[i].status);
+            printf("  |    %-10d    |    %-10s    |    %-15s    |    %-25s    |    %-8s    |    %-8d    |    %-22s    |    %-12s    |    %-8s    |\n",booking_historys[i].serial,sign_ups[booking_historys[i].user_id].username,booking_historys[i].destination,booking_historys[i].bus_name,booking_historys[i].time,booking_historys[i].seat_no,booking_historys[i].name,booking_historys[i].phn_no,booking_historys[i].status);
             printf("   ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
 
     }
@@ -2075,7 +2075,7 @@ void pass_recovery()
             if ((strcmp(sign_ups[i].username,a)==0))
             {
                 flag=0;
-                printf("\n\n   PASSWORD IS: %S",sign_ups[i].password);
+                printf("\n\n   PASSWORD IS: %s",sign_ups[i].password);
                 break;
             }
             
@@ -2086,6 +2086,7 @@ void pass_recovery()
         {
             printf("\n\n   USERNAME NOT FOUND");
         }
+        fflush(stdin);
         printf("\n\n   Press any key to continue...");
         getchar();
         system("cls");
