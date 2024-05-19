@@ -110,11 +110,14 @@ bool sit[8][6][5][32];
 
 int main()
 {
+    // int columns = strtol(getenv("COLUMNS"), NULL, 10);
+    // int fwidth = strlen(s) + (columns - strlen(s)) / 2;
+    // printf("%*s\n", fwidth, s);
     system("color 70");
     // strcpy(newbooking_history.user_id,abcd);
     user_file_read();
     history_file_read();
-    // welcome();
+    welcome();
     // user_list();
 //    login_admin();
     // login_user();
@@ -1600,6 +1603,7 @@ void update()
                                 fflush(stdin);
                                 gets(str);
                                 strcpy(booking_historys[x-1].name,str);
+                                break;
                                 // printf("   ENTER YOUR PHONE NO: ");
                                 // fflush(stdin);
                                 // scanf(" %s",phnno);
@@ -1615,7 +1619,8 @@ void update()
                                 printf("\n   ENTER YOUR PHONE NO: ");
                                 fflush(stdin);
                                 gets(str);
-                                strcpy(booking_historys[x-1].phn_no,str);                    
+                                strcpy(booking_historys[x-1].phn_no,str);
+                                break;                    
                         }
                     }
                     // strcpy(booking_historys[x-1].status,b);
@@ -1739,6 +1744,7 @@ void admin_update()
                                 fflush(stdin);
                                 gets(str);
                                 strcpy(booking_historys[x-1].name,str);
+                                break;
                                 // printf("   ENTER YOUR PHONE NO: ");
                                 // fflush(stdin);
                                 // scanf(" %s",phnno);
@@ -1754,7 +1760,8 @@ void admin_update()
                                 printf("\n   ENTER YOUR PHONE NO: ");
                                 fflush(stdin);
                                 gets(str);
-                                strcpy(booking_historys[x-1].phn_no,str);                    
+                                strcpy(booking_historys[x-1].phn_no,str);   
+                                break;                 
                         }
                     }
                     // strcpy(booking_historys[x-1].status,b);
