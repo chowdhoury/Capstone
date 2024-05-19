@@ -49,6 +49,9 @@ void admin_history();
 void admin_cancel();
 void update();
 void admin_update();
+void print_ticket();
+void pass_recovery();
+void admin_print_ticket();
 
 //---------------------------------------------------------End of function recall----------------------------------------------------------------------------------//
 
@@ -135,7 +138,10 @@ int main()
     // admin_history();
     // admin_cancel();
     // update();
-    admin_update();
+    // admin_update();
+    // print_ticket();
+    // pass_recovery();
+    // admin_print_ticket();
     return 0;
 }
 
@@ -258,6 +264,7 @@ void login_admin()
         pass[i] = '\0';
         if(strcmp(username,user)==0 && strcmp(password,pass)==0)
         {
+            temp=-1;
             admin_menu();
             break;
         }
@@ -273,18 +280,64 @@ void login_admin()
 
 void admin_menu()
 {
-    system("cls");
-    printf("\n\n   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n");
-    printf("     BUS TICKET RESERVATION SYSTEM");
-    printf("\n   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n\n");
-    printf("   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd  Main menu  \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n\n");
-    printf("     This Menu is under Maintenance\n\n");
-    printf("   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n");
-    fflush(stdin);
-    printf("\n   Press any key to continue...");
-    getchar();
-    system("cls");
-    user_list();
+    while (1)
+    {
+        system("cls");
+        printf("\n\n   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n");
+        printf("     BUS TICKET RESERVATION SYSTEM");
+        printf("\n   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n\n");
+        printf("   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd  MAIN MENU  \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n\n");
+        printf("   [1] View Bus Info\n\n");
+        printf("   [2] Book Tickets\n\n");
+        printf("   [3] Print Ticket Tickets\n\n");
+        printf("   [4] Update Tickets Info\n\n");
+        printf("   [5] Cancel Booking\n\n");
+        printf("   [6] Booking History\n\n");
+        printf("   [7] Password Recovery\n\n");
+        printf("   [8] Sign out\n\n");
+        printf("   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n");
+        printf("\n   ENTER YOUR CHOICE: ");
+        scanf("%d",&selected_menu);
+        system("cls");
+        if (selected_menu >= 1 && selected_menu <= 8)
+        {
+            switch (selected_menu)
+            {
+            case 1:
+                bus_destination();
+                break;
+            case 2:
+                bus_destination();
+                break;
+            case 3:
+                admin_print_ticket();
+                break;
+            case 4:
+                admin_update();
+                break;
+            case 5:
+                admin_cancel();
+                break;
+            case 6:
+                admin_history();
+                break;
+            case 7:
+                pass_recovery();
+                break;
+            case 8:
+                user_list();
+                break;
+
+            // default:
+            //     break;
+            }
+            // break;
+        }
+        else
+        {
+            invalid_choice();
+        }
+    }
 }
 
 //---------------------------------------------------------End of Admin Menu----------------------------------------------------------------------------------//
@@ -692,6 +745,11 @@ void bus_list()
             printf("\n   Press any key to continue...");
             getchar();
             system("cls");
+            if (temp==-1)
+            {
+                admin_menu();
+            }
+            
             user_menu();
         }
 
@@ -854,10 +912,11 @@ void user_menu()
         printf("   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd  MAIN MENU  \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n\n");
         printf("   [1] View Bus Info\n\n");
         printf("   [2] Book Tickets\n\n");
-        printf("   [3] Update Tickets Info\n\n");
-        printf("   [4] Cancel Booking\n\n");
-        printf("   [5] Booking History\n\n");
-        printf("   [6] Sign out\n\n");
+        printf("   [3] Print Ticket Tickets\n\n");
+        printf("   [4] Update Tickets Info\n\n");
+        printf("   [5] Cancel Booking\n\n");
+        printf("   [6] Booking History\n\n");
+        printf("   [7] Sign out\n\n");
         printf("   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n");
         printf("\n   ENTER YOUR CHOICE: ");
         scanf("%d",&selected_menu);
@@ -873,15 +932,18 @@ void user_menu()
                 bus_destination();
                 break;
             case 3:
-                update();
+                print_ticket();
                 break;
             case 4:
-                cancel();
+                update();
                 break;
             case 5:
-                history();
+                cancel();
                 break;
             case 6:
+                history();
+                break;
+            case 7:
                 user_list();
                 break;
 
@@ -1731,4 +1793,299 @@ void admin_update()
             }
         }
     }
+}
+
+void print_ticket()
+{
+    while (1)
+    {
+        int x;
+        char a;
+        char b[]="Canceled";
+        char m[]="Booked";
+        system("cls");
+        printf("\n\n   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n");
+        printf("     BUS TICKET RESERVATION SYSTEM");
+        printf("\n   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n\n");
+        printf("   \xcd\xcd\xcd\xcd\xcd\xcd  CANCEL TICKET  \xcd\xcd\xcd\xcd\xcd\xcd \n\n");
+        printf("\n   ENTER TICKET SERIAL NO: ");
+        scanf("%d",&x);
+        if (x > history_count || x<1)
+        {
+            system("cls");
+            invalid_choice();
+        }else
+        {
+            if (temp==booking_historys[x-1].user_id && (strcmp(booking_historys[x-1].status,m))==0)
+            {
+                /* code */
+            
+            
+                system("cls");
+                printf("\n\n   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n");
+                printf("\t\t\t\t\t\t\t\t      BUS TICKET RESERVATION SYSTEM\n");
+                printf("   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n");
+                printf("   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd  History  \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n");
+                printf("   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n");
+                printf("  |    %-10s    |    %-15s    |    %-25s    |    %-8s    |    %-8s    |    %-22s    |    %-12s    |    %-8s    |\n","Serial no","Destination","Bus","Time","Seat no","Passenger name","Phone no","Status");
+                printf("   ----------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
+                // for (int i = 0; i < history_count; i++)
+                // {
+
+
+                // if (strcmp(booking_historys[i].user_id,abcd) == 0)
+                // {
+                printf("  |    %-10d    |    %-15s    |    %-25s    |    %-8s    |    %-8d    |    %-22s    |    %-12s    |    %-8s    |\n",booking_historys[x-1].serial,booking_historys[x-1].destination,booking_historys[x-1].bus_name,booking_historys[x-1].time,booking_historys[x-1].seat_no,booking_historys[x-1].name,booking_historys[x-1].phn_no,booking_historys[x-1].status);
+                // printf("  |    %-15s    |    %-25s    |    %-8s    |    %-8d    |    %-22s    |    %-12s    |",booking_historys[x-1].destination,booking_historys[x-1].bus_name,booking_historys[x-1].time,booking_historys[x-1].seat_no,booking_historys[x-1].name,booking_historys[x-1].phn_no);
+                // if (booking_historys[x-1].status==1)
+                // {
+                //     printf("    %-8s    |\n","Booked");
+                // }else
+                // {
+                //     printf("    %-8s    |\n","Canceled");
+                // }
+                    printf("   ----------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
+                // }  
+                // }
+                printf("   Press y to Print Ticket, any other key to go to menu... ");
+                fflush(stdin);
+                scanf("%c",&a);
+                if (a=='y')
+                {
+                    // strcpy(booking_historys[x-1].status,b);
+                    system("cls");
+                    // printf("\n\n   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n");
+                    // printf("        BUS TICKET RESERVATION SYSTEM");
+                    // printf("\n   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n\n");
+                    // printf("          Ticket Successfully Canceled.\n\n");
+                    // printf("   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n");
+                    // printf("   Press any key to continue...");
+                    // getchar();
+                    // getchar();
+                    // history_file_write();
+                    char status[]="Booked";
+                    system("cls");
+                    char e[]="Wishing you a smooth trip filled with adventures and excitement.";
+                    char f[]="";
+                    // char c[]="10.00am";
+                    // char d[]="Md Raihan Chowdhoury";
+                    // char e[]="01771973004";
+                    // int f=10;
+                    // int g=200;
+                    // char h[]="Lalon Shah Poribahan";
+                    // char i[]="Dhaka";
+                    // strcpy(newbooking_history.bus_name,h);
+                    // strcpy(newbooking_history.destination,i);
+                    // strcpy(newbooking_history.time,c);
+                    // strcpy(newbooking_history.name,d);
+                    // strcpy(newbooking_history.phn_no,e);
+                    // newbooking_history.seat_no=f;
+                    // newbooking_history.fare=g;
+                    printf("\n\n   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n");
+                    printf("  |  \t\t\t  Ticket: %-25s \tSerial: %-2d  |",booking_historys[x-1].bus_name,booking_historys[x-1].serial);
+                    printf("\n   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n");
+                    printf("  |  \tDestination: %-15s\t\tDeparture time: %-8s    |\n",booking_historys[x-1].destination,booking_historys[x-1].time);
+                    fflush(stdin);
+                    printf("  |  \tName: %-22s\t\tPhn no: %-15s     |\n",booking_historys[x-1].name,booking_historys[x-1].phn_no);
+                    printf("  |  \tSeat no: %-19d\t\tFare: BDT %-15d   |\n",booking_historys[x-1].seat_no,booking_historys[x-1].fare);
+                    printf("  |    %-66s   |\n",f);
+                    printf("  |    %-66s   |\n",e);
+                    printf("   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n");
+                    fflush(stdin);
+                    printf("\n   Press any key to continue...");
+                    getchar();
+                    // system("cls");
+                    user_menu();
+                    system("cls");
+                }
+                system("cls");
+                user_menu();
+                break;
+                // booking_historys[x].status=0;
+
+                break;
+            }else
+            {
+                system("cls");
+                printf("\n\n   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n");
+                printf("        BUS TICKET RESERVATION SYSTEM");
+                printf("\n   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n\n");
+                printf("              Cancelled or No access.\n\n");
+                printf("   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n");
+                printf("   Press any key to continue...");
+                getchar();
+                getchar();
+                system("cls");
+            }
+        }
+    }
+}
+
+void admin_print_ticket()
+{
+    while (1)
+    {
+        int x;
+        char a;
+        char b[]="Canceled";
+        char m[]="Booked";
+        system("cls");
+        printf("\n\n   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n");
+        printf("     BUS TICKET RESERVATION SYSTEM");
+        printf("\n   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n\n");
+        printf("   \xcd\xcd\xcd\xcd\xcd\xcd  CANCEL TICKET  \xcd\xcd\xcd\xcd\xcd\xcd \n\n");
+        printf("\n   ENTER TICKET SERIAL NO: ");
+        scanf("%d",&x);
+        if (x > history_count || x<1)
+        {
+            system("cls");
+            invalid_choice();
+        }else
+        {
+            if ((strcmp(booking_historys[x-1].status,m))==0)
+            {
+                /* code */
+            
+            
+                system("cls");
+                printf("\n\n   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n");
+                printf("\t\t\t\t\t\t\t\t      BUS TICKET RESERVATION SYSTEM\n");
+                printf("   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n");
+                printf("   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd  History  \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n");
+                printf("   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n");
+                printf("  |    %-10s    |    %-15s    |    %-25s    |    %-8s    |    %-8s    |    %-22s    |    %-12s    |    %-8s    |\n","Serial no","Destination","Bus","Time","Seat no","Passenger name","Phone no","Status");
+                printf("   ----------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
+                // for (int i = 0; i < history_count; i++)
+                // {
+
+
+                // if (strcmp(booking_historys[i].user_id,abcd) == 0)
+                // {
+                printf("  |    %-10d    |    %-15s    |    %-25s    |    %-8s    |    %-8d    |    %-22s    |    %-12s    |    %-8s    |\n",booking_historys[x-1].serial,booking_historys[x-1].destination,booking_historys[x-1].bus_name,booking_historys[x-1].time,booking_historys[x-1].seat_no,booking_historys[x-1].name,booking_historys[x-1].phn_no,booking_historys[x-1].status);
+                // printf("  |    %-15s    |    %-25s    |    %-8s    |    %-8d    |    %-22s    |    %-12s    |",booking_historys[x-1].destination,booking_historys[x-1].bus_name,booking_historys[x-1].time,booking_historys[x-1].seat_no,booking_historys[x-1].name,booking_historys[x-1].phn_no);
+                // if (booking_historys[x-1].status==1)
+                // {
+                //     printf("    %-8s    |\n","Booked");
+                // }else
+                // {
+                //     printf("    %-8s    |\n","Canceled");
+                // }
+                    printf("   ----------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
+                // }  
+                // }
+                printf("   Press y to Print Ticket, any other key to go to menu... ");
+                fflush(stdin);
+                scanf("%c",&a);
+                if (a=='y')
+                {
+                    // strcpy(booking_historys[x-1].status,b);
+                    system("cls");
+                    // printf("\n\n   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n");
+                    // printf("        BUS TICKET RESERVATION SYSTEM");
+                    // printf("\n   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n\n");
+                    // printf("          Ticket Successfully Canceled.\n\n");
+                    // printf("   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n");
+                    // printf("   Press any key to continue...");
+                    // getchar();
+                    // getchar();
+                    // history_file_write();
+                    char status[]="Booked";
+                    system("cls");
+                    char e[]="Wishing you a smooth trip filled with adventures and excitement.";
+                    char f[]="";
+                    // char c[]="10.00am";
+                    // char d[]="Md Raihan Chowdhoury";
+                    // char e[]="01771973004";
+                    // int f=10;
+                    // int g=200;
+                    // char h[]="Lalon Shah Poribahan";
+                    // char i[]="Dhaka";
+                    // strcpy(newbooking_history.bus_name,h);
+                    // strcpy(newbooking_history.destination,i);
+                    // strcpy(newbooking_history.time,c);
+                    // strcpy(newbooking_history.name,d);
+                    // strcpy(newbooking_history.phn_no,e);
+                    // newbooking_history.seat_no=f;
+                    // newbooking_history.fare=g;
+                    printf("\n\n   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n");
+                    printf("  |  \t\t\t  Ticket: %-25s \tSerial: %-2d  |",booking_historys[x-1].bus_name,booking_historys[x-1].serial);
+                    printf("\n   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n");
+                    printf("  |  \tDestination: %-15s\t\tDeparture time: %-8s    |\n",booking_historys[x-1].destination,booking_historys[x-1].time);
+                    fflush(stdin);
+                    printf("  |  \tName: %-22s\t\tPhn no: %-15s     |\n",booking_historys[x-1].name,booking_historys[x-1].phn_no);
+                    printf("  |  \tSeat no: %-19d\t\tFare: BDT %-15d   |\n",booking_historys[x-1].seat_no,booking_historys[x-1].fare);
+                    printf("  |    %-66s   |\n",f);
+                    printf("  |    %-66s   |\n",e);
+                    printf("   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n");
+                    fflush(stdin);
+                    printf("\n   Press any key to continue...");
+                    getchar();
+                    // system("cls");
+                    admin_menu();
+                    system("cls");
+                }
+                system("cls");
+                admin_menu();
+                break;
+                // booking_historys[x].status=0;
+
+                break;
+            }else
+            {
+                system("cls");
+                printf("\n\n   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n");
+                printf("        BUS TICKET RESERVATION SYSTEM");
+                printf("\n   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n\n");
+                printf("              Ticket Cancelled\n\n");
+                printf("   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n");
+                printf("   Press any key to continue...");
+                getchar();
+                getchar();
+                system("cls");
+            }
+        }
+    }
+}
+
+
+void pass_recovery()
+{
+    char a[10];
+    bool flag=1;
+    while (1)
+    {
+        system("cls");
+        printf("\n\n   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n");
+        printf("\t    BUS TICKET RESERVATION SYSTEM");
+        printf("\n   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n\n");
+        printf("   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd  ADMIN LOGIN  \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd  ");
+        fflush(stdin);
+        printf("\n\n   ENTER USERNAME: ");
+        fflush(stdin);
+        scanf("%s", a);
+        for (int i = 0; i < user; i++)
+        {
+            if ((strcmp(sign_ups[i].username,a)==0))
+            {
+                flag=0;
+                printf("\n\n   PASSWORD IS: %S",sign_ups[i].password);
+                break;
+            }
+            
+            // strcmp(sign_ups[i].username,)
+        }
+
+        if (flag)
+        {
+            printf("\n\n   USERNAME NOT FOUND");
+        }
+        printf("\n\n   Press any key to continue...");
+        getchar();
+        system("cls");
+        admin_menu();
+        
+        
+    }
+    
+
 }
