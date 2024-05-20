@@ -570,11 +570,23 @@ void ticket()
 void user_file_read()
 {
     FILE *fp;
-    fp = fopen("user.txt", "r");
-    if (fp == NULL) {
-        printf("Error opening file!\n");
-        return;
+    int n=2;
+    while (n--)
+    {
+        fp = fopen("user.txt", "r");
+        if (fp == NULL) {
+            FILE *fp = fopen("user.txt", "w");
+            // printf("Error opening file!\n");
+            // return;
+        }
     }
+    
+    // fp = fopen("user.txt", "r");
+    // if (fp == NULL) {
+    //     FILE *fp = fopen("user.txt", "w");
+    //     // printf("Error opening file!\n");
+    //     // return;
+    // }
 
     user = 0;
     while (fscanf(fp, "%[^,] ,%[^,],%d\n",
@@ -673,11 +685,22 @@ void history_file_write()
 void history_file_read()
 {
     FILE *fp;
-    fp = fopen("history.txt", "r");
-    if (fp == NULL) {
-        printf("Error opening file!\n");
-        return;
+    int n=2;
+    while (n--)
+    {
+        fp = fopen("history.txt", "r");
+        if (fp == NULL) {
+            fp = fopen("history.txt", "w");
+            // printf("Error opening file!\n");
+            // return;
+        }
     }
+    
+    // fp = fopen("history.txt", "r");
+    // if (fp == NULL) {
+    //     printf("Error opening file!\n");
+    //     return;
+    // }
 
     history_count = 0;
     while (fscanf(fp, "%d,%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%d,%d,%d,%d,%d,%d,%d\n",&booking_historys[history_count].user_id, booking_historys[history_count].name, booking_historys[history_count].phn_no, booking_historys[history_count].destination, booking_historys[history_count].status, booking_historys[history_count].time,booking_historys[history_count].bus_name,&booking_historys[history_count].seat_no,&booking_historys[history_count].fare,&booking_historys[history_count].serial,&booking_historys[history_count].selected_seat,&booking_historys[history_count].selected_destination,&booking_historys[history_count].selected_bus,&booking_historys[history_count].selected_time) != EOF) {
@@ -739,12 +762,24 @@ void sit_file_read()
 {
     FILE *fp;
     int i;
-    fp = fopen("seat.txt", "r");
-    if (fp == NULL)
+    int n=2;
+    while (n--)
     {
-        printf("Error opening file!\n");
-        exit(1);
+        fp = fopen("seat.txt", "r");
+        if (fp == NULL)
+        {
+            fp = fopen("seat.txt", "w");
+            // printf("Error opening file!\n");
+            // exit(1);
+        }
     }
+    
+    // fp = fopen("seat.txt", "r");
+    // if (fp == NULL)
+    // {
+    //     printf("Error opening file!\n");
+    //     exit(1);
+    // }
     for (int i = 0; i < 8; i++)
     {
         for (int j = 0; j < 6; j++)
