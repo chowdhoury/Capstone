@@ -179,7 +179,7 @@ void welcome()
     printf("                    Thanks to our course teacher\n");
     printf("                        Mr. Abdul Hye Zebon\n");
     printf("   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n");
-    printf("     Presenting to you in collaboration with \"Team Dare to Dream\"\n");
+    printf("     Presenting to you in collaboration with \"Team: Dare to Dream\"\n");
     printf("            Md Raihan Chowdhoury        -> 0242310005341002\n");
     printf("            Md. Alif Khan               -> 232-35-740\n");
     printf("            Romana Akter Romky          -> 0242310005341073\n");
